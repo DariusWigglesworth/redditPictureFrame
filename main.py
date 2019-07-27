@@ -1,8 +1,8 @@
-#First phase
-#GET top 100 from past 24 hours in .JSON format
-#Parse out non-pictures
-#Parse out everything remaining below 24th
-#Sleep 1 hour, display next using JSON data
+#First Phase
+#Get top 100 from past 24 hours in .json format
+#Parse out non pictures
+#parse out everything remaining before 24th
+#Display pic, sleep next hour, display next from json data
 
 #json data order: over_18, url, is_video
 
@@ -12,40 +12,25 @@ from time import sleep
 sleepDuration = 3600
 dailyCatDict = {}
 tempDict = {}
-isOver18 = False
-isVideo = False
 
 #while True:
-
     #if midnight parse
 response = requests.get('https://www.reddit.com/r/Catloaf/top/.json?sort=top&t=day', headers = {'User-agent': 'Darius cat bot'})
-print('The HTTP response code was ', response)
 data = response.json()
+print('The HTTP response code was ', response)
 
 for i in data['data']['children']:
-    for j in i:
-        if j == 'over_18' and i[j] == 'false':
-            isOver18 = False
-        elif j == 'is_video' and i[j] == 'true':
-            isVideo = True
-            
-    if (isOver18 == False) and (isVideo == False):
-        tempDict = {
-            #'title': data['data']['children'][i]['title'],
-            #'url': data['data']['children'][i]['url'],
-            'title': i['title'],
-            'url': i['url'],
-        }
-        print('entered here')
-    dailyCatDict.update(tempDict)
-    isOver18 = True
-    isVideo = False
-        
-    
+    print('The is_video data is ', i.get('data').get('is_video'))
+    if i.get('data').get('over_18') == False and i.get('data').get('is_video') == False:
+        tempDict['title'] = i.get('data').get('title')
+        tempDict['url'] = i.get('data').get('url')
+        dailyCatDict.update(tempDict)
+        print(tempDict)
+
 with open('data.txt', 'w') as outfile:
     json.dump(data, outfile)
 
 with open('output.txt', 'w') as outfile:
     json.dump(dailyCatDict, outfile)
 
-    #else display
+#else display
