@@ -12,6 +12,8 @@
 import json, requests
 from time import sleep
 
+import Image
+
 sleepDuration = 3600
 dailyCats = [] #array that holds all 24 dicts of cat pictures for the day      
 
@@ -29,6 +31,9 @@ for i in data['data']['children']:
         dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
         print(dailyCats) #prints array for debugging purposes
 
+curPicture = Image.open(dailyCats.get('url')) #PLACEHOLDER
+curPicture.show()
+
 with open('data.txt', 'w') as outfile:      #Creates a file of the dict from json that it is using as data
     json.dump(data, outfile)
 
@@ -36,3 +41,7 @@ with open('output.txt', 'w') as outfile:    #Create and outfile for easier debug
     json.dump(dailyCats, outfile)
 
 #else display
+
+image = Image.open('File.jpg')
+
+
