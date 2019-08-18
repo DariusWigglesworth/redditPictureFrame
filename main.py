@@ -11,15 +11,14 @@
 
 import json, requests
 from time import sleep
-
-import Image
+from PIL import Image
 
 sleepDuration = 3600
 dailyCats = [] #array that holds all 24 dicts of cat pictures for the day      
 
 
 #Sends REST GET request to reddit to get the desired .json file and convert it to a dict to parse
-response = requests.get('https://www.reddit.com/r/Catloaf/top/.json?sort=top&t=day', headers = {'User-agent': 'Darius cat bot'})
+response = requests.get('https://www.reddit.com/r/catfruit/top/.json?sort=top&t=week', headers = {'User-agent': 'Darius cat bot'})
 data = response.json()
 print('The HTTP response code was ', response)
 
@@ -31,8 +30,12 @@ for i in data['data']['children']:
         dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
         print(dailyCats) #prints array for debugging purposes
 
-curPicture = Image.open(dailyCats.get('url')) #PLACEHOLDER
-curPicture.show()
+for item in dailyCats:
+    for key in item:
+        #print(item[key])
+        if key == 'url':
+            curPicture = Image.open(item[key])
+            curPicture.show()
 
 with open('data.txt', 'w') as outfile:      #Creates a file of the dict from json that it is using as data
     json.dump(data, outfile)
@@ -43,5 +46,3 @@ with open('output.txt', 'w') as outfile:    #Create and outfile for easier debug
 #else display
 
 image = Image.open('File.jpg')
-
-
