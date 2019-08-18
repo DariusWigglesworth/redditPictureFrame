@@ -1,6 +1,8 @@
 # redditPictureFrame
  Raspberry Pi run picture frame that gets pictures from reddit API daily and displays them
  
+ Important: Requires PILLOW to run as of August 18th, 2019
+ 
  Sends a get request to a certain reddit url to get data in .json format
  Data is then converted to a dictionary and then parsed for appropriate parameters
  These are by default that the post is not a video and not marked NSFW
