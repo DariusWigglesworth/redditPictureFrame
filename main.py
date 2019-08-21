@@ -19,7 +19,7 @@ dailyCats = [] #array that holds all 24 dicts of cat pictures for the day
 
 
 #Sends REST GET request to reddit to get the desired .json file and convert it to a dict to parse
-response = requests.get('https://www.reddit.com/r/catfruit/top/.json?sort=top&t=week', headers = {'User-agent': 'Darius cat bot'})
+response = requests.get('https://www.reddit.com/user/frubbliness/m/cats/top/.json', headers = {'User-agent': 'Darius cat bot'})
 data = response.json()
 print('The HTTP response code was ', response)
 
@@ -29,7 +29,9 @@ for i in data['data']['children']:
     #if requirements are met then it creates a temp dict with needed information and adds it to daily dict
     if i.get('data').get('over_18') == False and i.get('data').get('is_video') == False:
         dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
-        print(dailyCats) #prints array for debugging purposes
+        #print(dailyCats) #prints array for debugging purposes
+
+print('dict created and appended')
 
 for item in dailyCats:
     for key in item:
