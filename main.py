@@ -13,6 +13,7 @@ import json, requests
 from time import sleep
 from PIL import Image
 import webbrowser
+import subprocess
 
 sleepDuration = 3600
 dailyCats = [] #array that holds all 24 dicts of cat pictures for the day      
@@ -39,7 +40,12 @@ for item in dailyCats:
         if key == 'url':
             #curPicture = Image.open(item[key])
             #curPicture.show()
-            webbrowser.open_new(item[key])
+            
+            #webbrowser.open_new(item[key])
+
+            p = subprocess.Popen(['chromium-browser', item[key]])
+            sleep(30)
+            p.terminate()
 
 with open('data.txt', 'w') as outfile:      #Creates a file of the dict from json that it is using as data
     json.dump(data, outfile)
