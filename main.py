@@ -12,6 +12,7 @@
 import json, requests
 from time import sleep
 from PIL import Image
+import webbrowser
 
 sleepDuration = 3600
 dailyCats = [] #array that holds all 24 dicts of cat pictures for the day      
@@ -34,8 +35,9 @@ for item in dailyCats:
     for key in item:
         #print(item[key])
         if key == 'url':
-            curPicture = Image.open(item[key])
-            curPicture.show()
+            #curPicture = Image.open(item[key])
+            #curPicture.show()
+            webbrowser.open_new(item[key])
 
 with open('data.txt', 'w') as outfile:      #Creates a file of the dict from json that it is using as data
     json.dump(data, outfile)
@@ -45,4 +47,4 @@ with open('output.txt', 'w') as outfile:    #Create and outfile for easier debug
 
 #else display
 
-image = Image.open('File.jpg')
+#image = Image.open('File.jpg')
