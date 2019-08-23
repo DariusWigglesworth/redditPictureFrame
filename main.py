@@ -43,9 +43,9 @@ for item in dailyCats:
             
             #webbrowser.open_new(item[key])
 
-            p = subprocess.Popen(['chromium-browser', item[key]])
-            sleep(30)
-            p.terminate()
+            p = subprocess.Popen(['chromium-browser', item[key]]) #Create subprocess to open browser at url
+            sleep(30)   #Sleep 30s for testing purposes
+            p.terminate() #kill browser
 
 with open('data.txt', 'w') as outfile:      #Creates a file of the dict from json that it is using as data
     json.dump(data, outfile)
