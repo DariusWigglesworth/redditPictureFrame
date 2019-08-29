@@ -12,7 +12,6 @@
 import json, requests
 from time import sleep
 from PIL import Image
-import webbrowser
 import subprocess
 
 sleepDuration = 3600
@@ -36,12 +35,9 @@ print('dict created and appended')
 
 for item in dailyCats:
     for key in item:
-        #print(item[key])
         if key == 'url':
             #curPicture = Image.open(item[key])
             #curPicture.show()
-            
-            #webbrowser.open_new(item[key])
 
             p = subprocess.Popen(['chromium-browser', item[key]]) #Create subprocess to open browser at url
             sleep(30)   #Sleep 30s for testing purposes
@@ -53,6 +49,3 @@ with open('data.txt', 'w') as outfile:      #Creates a file of the dict from jso
 with open('output.txt', 'w') as outfile:    #Create and outfile for easier debugging
     json.dump(dailyCats, outfile)
 
-#else display
-
-#image = Image.open('File.jpg')
