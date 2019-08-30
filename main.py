@@ -40,7 +40,7 @@ while True:
                     #curPicture = Image.open(item[key])
                     #curPicture.show()
 
-                    p = subprocess.Popen(['chromium-browser', item[key]]) #Create subprocess to open browser at url
+                    p = subprocess.Popen(['chromium-browser', item[key], '--start-fullscreen']) #Create subprocess to open browser at url
                     sleep(sleepDuration)   #Sleep 30s for testing purposes
                     p.terminate() #kill browser
         i += 1
