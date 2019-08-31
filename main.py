@@ -15,7 +15,9 @@ from PIL import Image
 import subprocess
 
 sleepDuration = 600
-dailyCats = [] #array that holds all 24 dicts of cat pictures for the day      
+dailyCats = [] #array that holds all 24 dicts of cat pictures for the day 
+goodUrl1 = 'i.imgur'
+goodUrl2 = 'i.redd'     
 
 while True:
     #Sends REST GET request to reddit to get the desired .json file and convert it to a dict to parse
@@ -27,8 +29,9 @@ while True:
     for i in data['data']['children']:
         #if requirements are met then it creates a temp dict with needed information and adds it to daily dict
         if i.get('data').get('over_18') == False and i.get('data').get('is_video') == False:
-            dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
-            #print(dailyCats) #prints array for debugging purposes
+            if goodUrl1 in i.get('data').get('url') or goodUrl2 in i.get('data').get('url')
+                dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
+                #print(dailyCats) #prints array for debugging purposes
 
     print('dict created and appended')
     
