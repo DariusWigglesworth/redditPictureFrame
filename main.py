@@ -1,17 +1,8 @@
 #Written by Darius Wigglesworth, ECE undergrad at UWaterloo
-#Special thanks to Gilbert Chui for all his help with Python dicts
-
-#First Phase
-#Get top 100 from past 24 hours in .json format
-#Parse out non pictures
-#parse out everything remaining before 24th
-#Display pic, sleep next hour, display next from json data
-
-#json data order: over_18, url, is_video
+#Special thanks to Gilbert Chui for all his help
 
 import json, requests
 from time import sleep
-from PIL import Image
 import subprocess
 
 sleepDuration = 600
@@ -50,9 +41,6 @@ while True:
         for item in dailyCats:
             for key in item:
                 if key == 'url':
-                    #curPicture = Image.open(item[key])
-                    #curPicture.show()
-
                     p = subprocess.Popen(['chromium-browser', item[key], '--start-fullscreen']) #Create subprocess to open browser at url
                     sleep(sleepDuration)   #Sleep 30s for testing purposes
                     p.terminate() #kill browser
