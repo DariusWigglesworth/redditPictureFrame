@@ -7,6 +7,7 @@ import subprocess
 
 sleepDuration = 600
 dailyCats = [] #array that holds all 24 dicts of cat pictures for the day
+#Different sites to exclude due to not displaying the picture the correct way in the browser
 exclude1 = 'gif'
 exclude2 = 'gfycat'
 exclude3 = 'v.redd'
@@ -25,8 +26,11 @@ while True:
     for i in data['data']['children']:
         #if requirements are met then it creates a temp dict with needed information and adds it to daily dict
         if i.get('data').get('over_18') == False and i.get('data').get('is_video') == False:
+            #Checks to see if part of the url it found is an excluded one
             if exclude1 in i.get('data').get('url') or exclude2 in i.get('data').get('url') or exclude3 in i.get('data').get('url'):
                 placeHolder += 1
+                #Placeholder code because an error was caused if there wasn't any code there (C++ doesn't care)
+                #Also works as a counter to show how many are itterated through and excluded
             else:
                 dailyCats.append({'title':i.get('data').get('title'), 'url':i.get('data').get('url')}) #adds needed data into a dict, adding the dict to the daily array for later use
                 #print(dailyCats) #prints array for debugging purposes
@@ -34,8 +38,9 @@ while True:
     with open('output.txt', 'w') as outfile:    #Create and outfile for easier debugging
         json.dump(dailyCats, outfile)
 
-    print('dict created and appended')
+    print('dict created and appended') #For debugging
     
+    #The followingis the display using Popen in subprocess
     i = 0
     while i < 5:
         for item in dailyCats:
